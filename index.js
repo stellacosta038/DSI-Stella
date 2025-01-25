@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const moongose = require('mongoose');
+const mongoose = require('mongoose');
 const productRoutes = require('./routes/productRoutes');
 
 const app = express();
@@ -8,15 +8,15 @@ const app = express();
 //Middlewaer
 app.use(express.json());
 
-//Conectando ao Mongodb
-moongose
-.connect(process.env.MONGOOBD_URI,{userNewUrlParser: true, useUnifiedTopology: true})
+//Conectando ao MongoDB
+mongoose
+.connect(process.env.MONGODB_URI)
 .then(() => console.log('Conectado ao MongoDB'))
-.catc(err => console.log(err));
+.catch(err => console.log(err));
 
 //Rotas
-app.use('api/products', productRoutes);
+app.use('/api/products',productRoutes);
 
-//Inicialiando o servidor
-const PORTO = process.env.PORT || 3000;
-app.listen(PORTO,() => console.log(`Servidor rodando na porta ${PORTO}`));
+//Inicializar servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
